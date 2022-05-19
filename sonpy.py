@@ -1884,6 +1884,39 @@ class sonnet(object):
 
         self.project.geo.dlayers[component.levelnum].components.append(component)
 
+    def addPoly(self, coord_list, lay_name, inherit="INH", ilevel=0, mtype=0, filltype="N", debugid=0, xmin=1, ymin=1, xmax=100, ymax=100, conmax=0, edgemesh='Y'):
+        """
+        Adds a polygon to the layer lay_name with the coordinates given by coord_list.
+        See "sonnet_project_format.pdf" for a detailed description of the parameters.
+
+        :param array coord_list: Coordinate list, e.g. [(5, 5), (6, 5), (6, 6), (5, 6), (5, 5)]
+        :param str lay_name: Name of the layer to put the polygon on
+        """
+        polygon = Polygon()
+        polygon.lay_name = lay_name
+        polygon.inherit = inherit
+        polygon.type = "MET POL"
+        polygon.ilevel = ilevel  # Circuit metalization level index, which begins with the index 0
+        polygon.nvertices = len(coord_list)  # Number of vertices which make up the polygon.
+        polygon.mtype = 0  # Index number which identifies the planar metal, via metal or dielectric brick type for the polygon.
+        polygon.filltype = filltype  # N indicates staircase fill, T indicates diagonal fill and V indicates conformal mesh.
+        polygon.debugid = debugid
+        polygon.xmin = xmin
+        polygon.ymin = ymin
+        polygon.xmax = xmax
+        polygon.ymax = ymax
+        polygon.conmax = conmax
+        polygon.res1 = 0
+        polygon.res2 = 0
+        polygon.edgemesh = edgemesh
+        for coord in coord_list:
+            polygon.vertices.append([coord[0], coord[1]])
+        for dlayer in self.project.geo.dlayers:
+            for tlayer in dlayer.tlayers:
+                if tlayer.lay_name == polygon.lay_name:
+                    tlayer.polygons.append(polygon)
+        self.project.geo.npoly += 1
+
     def removeDlayer(self, dlayer_index=0):
         """
         Removes a dielectric layer including any technology layers, ports or components that reside in the layer. Any via technology layers that extend to this dielectric layer are also removed.
