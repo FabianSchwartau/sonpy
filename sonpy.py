@@ -801,6 +801,7 @@ class sonnet(object):
                                     yvertex = float(line.split()[1])
                                     polygon.vertices.append([xvertex, yvertex])
                                     line = fd.readline()
+                                print(polygon.vertices)
                                 for dlayer in dlayers:
                                     for tlayer in dlayer.tlayers:
                                         if tlayer.lay_name == polygon.lay_name:
@@ -1496,14 +1497,7 @@ class sonnet(object):
         # left corner (LLC). This function takes an input point (xcoord, ycoord)
         # from the user's LLC system and returns the point in Sonnet's ULC system
 
-        yvertices = []
-        for dlayer in self.project.geo.dlayers:
-            for tlayer in dlayer.tlayers:
-                for polygon in tlayer.polygons:
-                    for vertex in polygon.vertices:
-                        yvertices.append(vertex[1])
-
-        return xcoord, (max(yvertices) - min(yvertices)) - ycoord
+        return xcoord, self.project.geo.box.ywidth - ycoord
 
     def addPort(self, xcoord, ycoord, xmargin=0.005, ymargin=0.005, **kwargs):
         """
