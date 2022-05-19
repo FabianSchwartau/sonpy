@@ -1910,7 +1910,8 @@ class sonnet(object):
         polygon.res2 = 0
         polygon.edgemesh = edgemesh
         for coord in coord_list:
-            polygon.vertices.append([coord[0], coord[1]])
+            xcoord, ycoord = self.mapPoint(coord[0], coord[1])
+            polygon.vertices.append([xcoord, ycoord])
         for dlayer in self.project.geo.dlayers:
             for tlayer in dlayer.tlayers:
                 if tlayer.lay_name == polygon.lay_name:
