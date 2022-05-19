@@ -147,8 +147,7 @@ class Polygon():
         self.to_level = None
         self.meshingfill = "RING"
         self.pads = "NOCOVERS"
-        self.gds_stream = None
-        self.gds_object = None
+        self.lay_name = None
         self.inherit = "INH"
         # List of [xvertex, yvertex]
         self.vertices = []
@@ -795,9 +794,7 @@ class sonnet(object):
                                     polygon.pads = params[3]
                                     line = fd.readline()
                                 tlaynam = line.split()
-                                gds_indices = tlaynam[1].replace("Stream","").split(":")
-                                polygon.gds_stream = int(gds_indices[0])
-                                polygon.gds_object = int(gds_indices[1])
+                                polygon.lay_name = tlaynam[1]
                                 polygon.inherit = tlaynam[2]
                                 line = fd.readline()
                                 while line != "END\n":
@@ -807,8 +804,7 @@ class sonnet(object):
                                     line = fd.readline()
                                 for dlayer in dlayers:
                                     for tlayer in dlayer.tlayers:
-                                        if tlayer.gds_stream == polygon.gds_stream and \
-                                           tlayer.gds_object == polygon.gds_object:
+                                        if tlayer.lay_name == polygon.lay_name:
                                             tlayer.polygons.append(polygon)
                                 # Assign port to layer if the current polygon's
                                 # debugid matches that of a port's ipolygon
@@ -1227,7 +1223,7 @@ class sonnet(object):
                         fd.write("{ilevel} {nvertices} {mtype} {filltype} {debugid} {xmin:n} {ymin:n} {xmax:n} {ymax:n} {conmax:n} {res1:n} {res2:n} {edgemesh}\n".format(**vars(polygon)))
                         if tlayer.lay_type == "VIA":
                             fd.write("TOLEVEL {to_level} {meshingfill} {pads}\n".format(**vars(polygon)))
-                        fd.write("TLAYNAM Stream{gds_stream}:{gds_object} {inherit}\n".format(**vars(polygon)))
+                        fd.write("TLAYNAM {lay_name} {inherit}\n".format(**vars(polygon)))
                         for vertex in polygon.vertices:
                             fd.write("{:n} {:n}\n".format(vertex[0], vertex[1]))
                         fd.write("END\n")
