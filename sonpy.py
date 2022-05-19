@@ -801,7 +801,6 @@ class sonnet(object):
                                     yvertex = float(line.split()[1])
                                     polygon.vertices.append([xvertex, yvertex])
                                     line = fd.readline()
-                                print(polygon.vertices)
                                 for dlayer in dlayers:
                                     for tlayer in dlayer.tlayers:
                                         if tlayer.lay_name == polygon.lay_name:
