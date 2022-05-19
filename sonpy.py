@@ -644,7 +644,6 @@ class sonnet(object):
                             tlayer.lay_name = params[2]
                             tlayer.dxf_layer = params[3]
                             tlayer.gds_stream = int(params[4])
-                            print(tlayer.gds_stream)
                             tlayer.gds_object = int(params[5])
                             params = fd.readline().split()
                             if len(params) != 13:
