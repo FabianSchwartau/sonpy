@@ -1887,7 +1887,7 @@ class sonnet(object):
     def addPoly(self, coord_list, lay_name, inherit="INH", ilevel=0, mtype=0, filltype="N", debugid=0, xmin=1, ymin=1, xmax=100, ymax=100, conmax=0, edgemesh='Y'):
         """
         Adds a polygon to the layer lay_name with the coordinates given by coord_list.
-        See "sonnet_project_format.pdf" for a detailed description of the parameters.
+        See [Son15]_ for a detailed description of the parameters.
 
         :param array coord_list: Coordinate list, e.g. [(5, 5), (6, 5), (6, 6), (5, 6), (5, 5)]
         :param str lay_name: Name of the layer to put the polygon on

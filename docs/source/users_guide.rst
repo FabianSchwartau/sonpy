@@ -27,7 +27,7 @@ Terminology
 
 Although the user is assumed to be familiar with Sonnet and chip design lingo, we briefly go through some of the terminology used in Sonnet, SonPy and the Sonnet project file syntax manual [Son15]_. Fig. 1 shows a screenshot from the Sonnet GUI highlighting some typical concepts.
 
-.. [Son15] Sonnet Project Format, Release 16, Sonnet Software Inc. (2015). Can be found `here <http://www.sonnetsoftware.com/support/downloads/manuals/sonnet_project_format.pdf>`_.
+.. [Son15] Sonnet Project Format, Release 16, Sonnet Software Inc. (2018). Can be found `here <http://www.sonnetsoftware.com/support/downloads/manuals/sonnet_project_format.pdf>`_.
 
 .. figure::  terminology.png
    :scale:   25
