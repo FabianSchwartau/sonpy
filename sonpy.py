@@ -1631,7 +1631,7 @@ class sonnet(object):
         # Add the port to the dlayer
         self.project.geo.dlayers[ilevel].ports.append(port)
 
-    def addComponent(self, x1, y1, x2, y2, tlayer_index, component_type="ind", value=10, xmargin=0.005, ymargin=0.005, **kwargs):
+    def addComponent(self, x1, y1, x2, y2, lay_name, component_type="ind", value=10, xmargin=0.005, ymargin=0.005, **kwargs):
         """
         Adds an ideal component. Attachment point margins are the same as for :func:`addPort`.
 
@@ -1641,7 +1641,7 @@ class sonnet(object):
         :param float y2: Attachment y coordinate for the second port.
         :param float xmargin: Margin in x direction.
         :param float ymargin: Margin in y direction.
-        :param int tlayer_index: Index (gds stream number) of the technology layer the component will live in.
+        :param str lay_name: Index (gds stream number) of the technology layer the component will live in.
         :param str component_type: Type of component. Should be ``"ind"`` (inductor), ``"cap"`` (capacitor) or ``"res"`` (resistor).
         :param float value: Value of the component in units suitable for the component type.
 
@@ -1689,7 +1689,7 @@ class sonnet(object):
         numberOfSameComponents = 0
         for dlayer in self.project.geo.dlayers:
             for tlayer in dlayer.tlayers:
-                if tlayer.gds_stream == tlayer_index:
+                if tlayer.lay_name == lay_name:
                     component.levelnum = dlayer.ilevel
                     component.smdp1_levelnum = dlayer.ilevel
                     component.smdp2_levelnum = dlayer.ilevel
